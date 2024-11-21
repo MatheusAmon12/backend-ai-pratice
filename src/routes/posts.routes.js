@@ -1,5 +1,6 @@
 import express from "express";
 import posts from "../model/posts.js";
+import { getPosts } from "../controllers/posts/getAllPosts.js";
 
 const getPostById = (id) => {
     return posts.find(post => post.id === Number(id));
@@ -8,7 +9,8 @@ const getPostById = (id) => {
 const routes = (app) => {
     app.use(express.json());
 
-    app.get("/", (req, res) => {
+    app.get("/", async (req, res) => {
+        const posts = await getPosts();
         res.status(200).json(posts);
     });
     
