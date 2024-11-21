@@ -7,6 +7,7 @@ const getAllPosts = async() => {
     const db = mongoClientConnection.db("project_instabytes");
     const postsColletions = db.collection("posts");
     const posts = await postsColletions.find({}).toArray();
+    return posts;
 };
 
 export {
