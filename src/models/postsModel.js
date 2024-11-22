@@ -10,6 +10,13 @@ const getAllPosts = async() => {
     return posts;
 };
 
+const createPost = async(newPost) => {
+    const db = mongoClientConnection.db("project_instabytes");
+    const postsColletions = db.collection("posts");
+    return postsColletions.insertOne(newPost);
+};
+
 export {
     getAllPosts,
+    createPost
 }

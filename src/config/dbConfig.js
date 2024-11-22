@@ -11,7 +11,7 @@ export default async function connectToDatabase(databaseUrl) {
 
         return mongoClient;
     } catch (error) {
-        console.error("Erro ao conectar ao banco de dados:", error);
+        console.error("Erro ao conectar ao banco de dados:", error.message);
         process.exit();
     }
 }
