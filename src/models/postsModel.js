@@ -1,3 +1,4 @@
+import { ObjectId } from "bson";
 import connectToDatabase from "../config/dbConfig.js";
 
 const databaseUrl = process.env.DATABASE_URL;
@@ -16,7 +17,23 @@ const createPost = async(newPost) => {
     return postsColletions.insertOne(newPost);
 };
 
+const updateOnePost = async(postId, updatedPost) => {
+    const db = mongoClientConnection.db("project_instabytes");
+    const postsColletions = db.collection("posts");
+
+    //convert string to object id that mongodb accepts
+    const objectId = ObjectId.createFromHexString(postId);
+    return postsColletions.updateOne({
+        _id: new ObjectId(objectId)
+    },
+    {
+        //$set is a mongodb operator that updates the document
+        $set: updatedPost
+    });
+}
+
 export {
     getAllPosts,
-    createPost
+    createPost,
+    updateOnePost
 }

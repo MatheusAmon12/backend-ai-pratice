@@ -1,4 +1,4 @@
-import {  createPost, getAllPosts } from "../models/postsModel.js";
+import {  createPost, getAllPosts, updateOnePost } from "../models/postsModel.js";
 import fs from "fs";
 
 const postsList = async (req, res) => {
@@ -44,8 +44,28 @@ const imageUpload = async (req, res) => {
     }
 };
 
+const updatePostById = async (req, res) => {
+    const postId = req.params.id;
+    const imgUrl = `http://localhost:3000/${postId}.png`;
+    const post = {
+        imgUrl,
+        description: req.body.description,
+        alt: req.body.alt
+    };
+    try {
+        const updatedPost = await updateOnePost(postId, post);
+        res.status(200).json(updatedPost);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({
+            message: "Ocorreu um erro ao atualizar o post",
+        });
+    }
+};
+
 export {
     postsList,
     addNewPost,
-    imageUpload
+    imageUpload,
+    updatePostById
 }
