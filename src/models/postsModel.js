@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { ObjectId } from "bson";
 import connectToDatabase from "../config/dbConfig.js";
 
